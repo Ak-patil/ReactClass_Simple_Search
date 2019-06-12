@@ -15,21 +15,27 @@ class App extends Component{
     constructor(){
         super()
         this.state={
-            news:JSON
+            news:JSON,
+            filtered:JSON
         }
+    }
+    filternews(keyword){
+        let output=this.state.news.filter((item)=>{
+            return (item.title.toLowerCase().indexOf(keyword.toLowerCase())>-1)
+        })
+        this.setState({filtered:output})
     }
 
     render(){
         // console.log(this.state.news)
         return(
             <div>
-                <Header/>
-                <hr/>
-                <  h1> My first React Code app</h1>
+                <Header userSearch={(data)=> this.filternews(data)} />
+            
                 
-                <Books/>
+                <Books />
                 <hr/>
-                <NewsList mynews={this.state.news}/>
+                <NewsList mynews={this.state.filtered}/>
                 <hr/>
     
                 </div>
